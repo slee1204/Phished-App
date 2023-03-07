@@ -5,7 +5,6 @@ import '@tremor/react/dist/esm/tremor.css';
 import { ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 
-
 // Our imports
 import { FooterSimple } from '../components/mantine/footer/Footer';
 import { HeaderResponsive } from '../components/mantine/header/Header.tsx';
@@ -39,6 +38,8 @@ export default function App({
             withGlobalStyles
             withNormalizeCSS
             theme={{
+              fontFamily: 'Greycliff CF, sans-serif',
+              headings: { fontFamily: 'Greycliff CF, sans-serif' },
               colors: {
                 blue: [
                   '#E8FBFF',
@@ -57,17 +58,19 @@ export default function App({
             }}
           >
             <NotificationsProvider>
-            <Head>
-              <title>Phished | Protect Friends & Family by Phishing Them</title>
-              <meta
-                name="viewport"
-                content="minimum-scale=1, initial-scale=1, width=device-width"
-              />
-            </Head>
-            <HeaderResponsive links={links} />
-            <NextNProgress />
-            <Component {...pageProps} />
-            <FooterSimple />
+              <Head>
+                <title>
+                  Phished | Protect Friends & Family by Phishing Them
+                </title>
+                <meta
+                  name="viewport"
+                  content="minimum-scale=1, initial-scale=1, width=device-width"
+                />
+              </Head>
+              <HeaderResponsive links={links} />
+              <NextNProgress />
+              <Component {...pageProps} />
+              <FooterSimple />
             </NotificationsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
