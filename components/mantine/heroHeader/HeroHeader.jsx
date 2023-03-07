@@ -1,7 +1,14 @@
-import { createStyles, Container, Text, Button, Group } from '@mantine/core';
-import { FaGithub } from 'react-icons/fa'
-import { useRouter } from "next/router";
-import { useSession } from 'next-auth/react'
+import {
+  createStyles,
+  Container,
+  Text,
+  Button,
+  Group,
+  Title,
+} from '@mantine/core';
+import { FaGithub } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
@@ -9,7 +16,8 @@ const useStyles = createStyles((theme) => ({
   wrapper: {
     position: 'relative',
     boxSizing: 'border-box',
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    backgroundColor:
+      theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
   },
 
   inner: {
@@ -72,49 +80,59 @@ const useStyles = createStyles((theme) => ({
 export function HeroHeader() {
   const { data: session } = useSession();
   const { classes } = useStyles();
-  const r = useRouter()
+  const r = useRouter();
 
   return (
     <div className={classes.wrapper}>
       <Container size={700} className={classes.inner}>
-        <h1 className={classes.title}>
+        <Title className={classes.title}>
           Protect Mom from phishing attacks by{' '}
-          <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'blue' }} inherit>
+          <Text
+            component="span"
+            variant="gradient"
+            gradient={{ from: 'blue', to: 'blue' }}
+            inherit
+          >
             phishing her yourself
           </Text>
+        </Title>
+
+        <h1 className={classes.description} color="dimmed">
+          Send personalized phishing emails to test and educate your friends and
+          family – never worry about their internet safety again
         </h1>
 
-        <Text className={classes.description} color="dimmed">
-          Send personalized phishing emails to test and educate your friends and family – never worry about their internet safety again
-        </Text>
-
         <Group className={classes.controls}>
-          {session ?
+          {session ? (
             <Button
               size="xl"
               className={classes.control}
               variant="fill"
               type="null"
-              onClick={() => { r.push({ pathname: '/account' }) }}
+              onClick={() => {
+                r.push({ pathname: '/account' });
+              }}
             >
               Get Phishing
             </Button>
-            :
+          ) : (
             <Button
               size="xl"
               className={classes.control}
               variant="fill"
-              type='null'
-              onClick={() => { r.push({ pathname: '/onboarding' }) }}
+              type="null"
+              onClick={() => {
+                r.push({ pathname: '/onboarding' });
+              }}
             >
               Get started
             </Button>
-          }
+          )}
 
           <Button
             component="a"
             href="https://github.com/phished-co/phished_web_app"
-            target='_blank'
+            target="_blank"
             size="xl"
             variant="default"
             className={classes.control}
