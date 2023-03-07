@@ -1,16 +1,21 @@
-import { Button, Text, Title } from "@mantine/core"
-import styled from "styled-components"
-import { useState } from "react"
-import EmailQuestion from "../components/quiz/EmailQuestion"
+import { Button, Text, Title } from '@mantine/core';
+import styled from 'styled-components';
+import { useState } from 'react';
+import EmailQuestion from '../components/quiz/EmailQuestion';
 import toast, { Toaster } from 'react-hot-toast';
-import Lottie from "lottie-react";
-import FishAnimation from "/public/FishAnimation.json";
+import Lottie from 'lottie-react';
+import FishAnimation from '/public/FishAnimation.json';
 
 export const Container = styled.div`
   max-width: 1140px;
   margin: 0 auto;
   margin-top: 8vh;
   ${'' /* outline: 2px solid green; */}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 
   .btn-cont {
     display: flex;
@@ -39,13 +44,13 @@ export const Container = styled.div`
   }
 
   .score-screen {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 640px;
     margin: 0 auto;
   }
-`
+`;
 const questionBank = [
   {
     id: 1,
@@ -54,12 +59,12 @@ const questionBank = [
     from: 'Logan MacDougall',
     email: 'l.macdougall@gmail.com',
     answer: 1,
-    url: 'www.google-photo.com'
+    url: 'www.google-photo.com',
   },
   {
     id: 2,
     name: 'Email with attachment',
-    tip: "This example contains an attachment. Do you want to check the file?",
+    tip: 'This example contains an attachment. Do you want to check the file?',
     answer: 1,
     from: 'Natasha Gisman',
     email: 'gis.nas.man@gmail.com',
@@ -72,7 +77,7 @@ const questionBank = [
     answer: 1,
     from: 'Google Security Team',
     email: 'security@googlesecurity.com',
-    url: 'www.gmail-verification.com'
+    url: 'www.gmail-verification.com',
   },
   {
     id: 4,
@@ -81,7 +86,7 @@ const questionBank = [
     answer: 0,
     from: 'Twitter',
     email: 'verify@twitter.com',
-    url: 'https://help.twitter.com/en'
+    url: 'https://help.twitter.com/en',
   },
   {
     id: 5,
@@ -90,7 +95,7 @@ const questionBank = [
     answer: 1,
     from: 'Google',
     email: 'no-reply@google.support',
-    url: 'http://myaccount.google.com-security/settings/signonoptions'
+    url: 'http://myaccount.google.com-security/settings/signonoptions',
   },
   {
     id: 6,
@@ -99,106 +104,135 @@ const questionBank = [
     answer: 0,
     from: 'Abby M (via Google Docs)',
     email: 'drive-share-dm-noreply@google.com',
-    url: 'https://docs.google.com/document/d../edit/'
+    url: 'https://docs.google.com/document/d../edit/',
   },
-
-]
+];
 
 export default function Quiz() {
-
-  let questions = questionBank.slice(0)
-  const [showScore, setShowScore] = useState(false)
-  const [shuffledQuestions, setShuffledQuestions] = useState(questions)
-  const [questionNum, setQuestionNum] = useState(0)
-  const [score, setScore] = useState(0)
-  const [showUrl, setShowUrl] = useState(false)
+  let questions = questionBank.slice(0);
+  const [showScore, setShowScore] = useState(false);
+  const [shuffledQuestions, setShuffledQuestions] = useState(questions);
+  const [questionNum, setQuestionNum] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showUrl, setShowUrl] = useState(false);
 
   // Fisher-Yates shuffle method
   function shuffle() {
-    let currentIndex = questions.length, randomIndex
+    let currentIndex = questions.length,
+      randomIndex;
 
     while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex--
-      [questions[currentIndex], questions[randomIndex]] = [questions[randomIndex], questions[currentIndex]]
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [questions[currentIndex], questions[randomIndex]] = [
+        questions[randomIndex],
+        questions[currentIndex],
+      ];
     }
-    console.log(questions)
-    setShowScore(false)
-    setShuffledQuestions(questions)
-    setQuestionNum(0)
-    setScore(0)
+    console.log(questions);
+    setShowScore(false);
+    setShuffledQuestions(questions);
+    setQuestionNum(0);
+    setScore(0);
   }
 
   function handleLegitClick() {
-
     if (shuffledQuestions[questionNum].answer === 0) {
-      setScore(score => score + 1)
-      correct()
-      console.log('Correct! Legit is the answer')
+      setScore((score) => score + 1);
+      correct();
+      console.log('Correct! Legit is the answer');
     } else {
-      incorrect()
+      incorrect();
     }
 
     if (questionNum > 1) {
-      setShowScore(true)
+      setShowScore(true);
     } else {
-      setQuestionNum(questionNum => questionNum + 1)
+      setQuestionNum((questionNum) => questionNum + 1);
     }
   }
 
   function handleFraudClick() {
-
     if (shuffledQuestions[questionNum].answer === 1) {
-      setScore(score => score + 1)
-      correct()
-      console.log('Correct! Fraud is the answer')
+      setScore((score) => score + 1);
+      correct();
+      console.log('Correct! Fraud is the answer');
     } else {
-      incorrect()
+      incorrect();
     }
 
     if (questionNum > 1) {
-      setShowScore(true)
+      setShowScore(true);
     } else {
-      setQuestionNum(questionNum => questionNum + 1)
+      setQuestionNum((questionNum) => questionNum + 1);
     }
   }
 
   function handleHover() {
-    setShowUrl(true)
+    setShowUrl(true);
   }
 
   function handleLeave() {
-    setShowUrl(false)
+    setShowUrl(false);
   }
 
-  const correct = () => toast.success('Correct!')
-  const incorrect = () => toast.error('Incorrect!')
+  const correct = () => toast.success('Correct!');
+  const incorrect = () => toast.error('Incorrect!');
 
   return (
     <Container>
       <Toaster />
-      {showScore
-        ? <div className='score-screen'>
-          <Title align='center' variant="gradient" gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}>
+      {showScore ? (
+        <div className="score-screen">
+          <Title
+            align="center"
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+          >
             You answered {score}/3 questions correctly
           </Title>
-          {score <= 1 ? <Text align='center'>Good try!</Text> : <Text align='center'>Nice job!</Text>}
-          <Lottie style={{width:200}} animationData={FishAnimation} loop={true} />
-          <Button mt={32} type='null' fullWidth onClick={shuffle}>Try again</Button>
+          {score <= 1 ? (
+            <Text align="center">Good try!</Text>
+          ) : (
+            <Text align="center">Nice job!</Text>
+          )}
+          <Lottie
+            style={{ width: 200 }}
+            animationData={FishAnimation}
+            loop={true}
+          />
+          <Button size="lg" mt={32} type="null" onClick={shuffle}>
+            Try again
+          </Button>
         </div>
-        : <>
-          <EmailQuestion questionIds={shuffledQuestions.slice(0, 3)} questionNum={questionNum} handleHover={handleHover} handleLeave={handleLeave} />
-          <div className='btn-cont'>
-            <Button type='null' fullWidth onClick={handleLegitClick}>Legitimate</Button>
-            <Button type='null' fullWidth onClick={handleFraudClick}>Fradulent</Button>
+      ) : (
+        <>
+          <EmailQuestion
+            questionIds={shuffledQuestions.slice(0, 3)}
+            questionNum={questionNum}
+            handleHover={handleHover}
+            handleLeave={handleLeave}
+          />
+          <div className="btn-cont">
+            <Button size="lg" type="null" onClick={handleLegitClick}>
+              Legitimate
+            </Button>
+            <Button size="lg" type="null" onClick={handleFraudClick}>
+              Fradulent
+            </Button>
           </div>
-        </>}
+        </>
+      )}
 
-      {showUrl
-        ? <div className='url'>
-          <Text>{(shuffledQuestions.slice(0, 3)[questionNum].url)}</Text>
+      {showUrl ? (
+        <div className="url">
+          <Text>{shuffledQuestions.slice(0, 3)[questionNum].url}</Text>
         </div>
-        : <div className='no-url' aria-hidden='true'><Text>url here</Text></div>}
+      ) : (
+        <div className="no-url" aria-hidden="true">
+          <Text>url here</Text>
+        </div>
+      )}
     </Container>
-  )
+  );
 }

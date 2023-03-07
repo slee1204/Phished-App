@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   ${'' /* outline: 2px solid red; */}
-  padding: 0 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #fafafa;
+  width: 960px;
 
   img {
     max-width: 80px;
@@ -20,15 +22,16 @@ const Wrapper = styled.div`
   .email {
     margin-top: 2rem;
     padding: 2rem;
-    background: #fafafa;
+    background: #ffffff;
     color: black;
   }
 
   .email-body {
     padding: 0 2rem;
-    background: #fafafa;
+    background: #ffffff;
     color: black;
     padding-bottom: 2rem;
+    width: 100%;
   }
 
   .header {
@@ -48,7 +51,7 @@ const Wrapper = styled.div`
     outline: 2px solid blue;
     max-width: 12rem;
     display: grid;
-    margin-top: 1rem;
+    margin-top: 0.7rem;
     margin-bottom: 1rem;
     padding: 0.5rem 1rem;
     justify-content: center;
